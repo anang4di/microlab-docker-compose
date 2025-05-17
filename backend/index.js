@@ -14,7 +14,7 @@ app.use(cors({
 const pool = new Pool({
   host: process.env.POSTGRES_HOST || "localhost",
   port: process.env.POSTGRES_PORT || 5433,
-  user: process.env.POSTGRES_USER || "asdf",
+  user: process.env.POSTGRES_USER || "postgres",
   password: process.env.POSTGRES_PASSWORD || "password",
   database: process.env.POSTGRES_DB || "postgres",
 });
