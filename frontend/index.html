@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Frontend</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="flex flex-col items-center justify-center">
+        <img
+          src="nginx.jpg"
+          alt="NGINX Logo"
+          class="w-72 h-auto -translate-y-20"
+        />
+        <button
+          class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full text-2xl cursor-pointer"
+          id="check-db-connection-btn"
+        >
+          Check Database Connection
+        </button>
+        <div id="db-connection-status" class="hidden">
+            <p class="text-2xl mt-4">
+              Database Connection Status:
+              <span id="db-status" class="font-bold text-green-500">Connected</span>
+            </p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="tailwindcss.js"></script>
+  <script>
+    document
+      .getElementById("check-db-connection-btn")
+      .addEventListener("click", function () {
+        fetch("http://localhost:5000/check-db-connection")
+          .then((response) => response.json())
+          .then((data) => {
+            const conStatusElement = document.getElementById("db-connection-status");
+            const statusElement = document.getElementById("db-status");
+            if (data.status === "ok") {
+              statusElement.textContent = "Connected";
+              statusElement.className = "font-bold text-green-500";
+            } else {
+              statusElement.textContent = "Not Connected";
+              statusElement.className = "font-bold text-red-500";
+            }
+            conStatusElement.classList.remove("hidden");
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
+  </script>
+</html>
